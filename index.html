@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="Bridging the Aesthetic Gap: Training-Free Multi-Layer Transparent Image Generation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bridging the Aesthetic Gap: Training-Free Multi-Layer Transparent Image Generation
+  </title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/img/COLE.jpg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+
+<body>
+
+  <style>
+    .publication-title {
+      font-family: "textsc "
+    }
+
+    video {
+      outline: none;
+      border: none;
+      box-shadow: none;
+    }
+
+    .image_wrapper {
+      position: relative;
+      width: 226px;
+      height: 226px;
+    }
+
+    .image_container {
+      border-radius: 10px;
+      /*设置图片的圆角，可以根据你的需求调整这个值*/
+      /*margin: 10px; !* 在图片的外部元素上设置间距 *!*/
+      overflow: hidden;
+      /* 为了保持图片的圆角效果 */
+      position: relative;
+      width: 100%;
+
+      padding-bottom: 100%;
+    }
+
+    .image_container img {
+
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* 这会使图片保持原始比例，但仍然填充其容器 */
+      object-position: center;
+      /* 新增加的代码，让图片居中 */
+    }
+
+    .caption {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      display: flex;
+      align-items: center;
+      /* 垂直居中 */
+      justify-content: center;
+      /* 水平居中 */
+      font-family: 'Comic Sans MS', 'Verdana', 'Tahoma', sans-serif;
+      text-align: center;
+      /* 让文本在其容器中水平居中 */
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .image_container:hover .caption {
+      opacity: 1;
+    }
+
+    .column.is-2.has-text-centered img.interpolation-image {
+
+      object-fit: cover;
+      border-radius: 10px;
+      transition: opacity 0.5s ease;
+      object-position: center;
+      /* 新增加的代码，让图片居中 */
+    }
+
+    .column.is-2.has-text-centered:hover img.interpolation-image {
+      opacity: 0.5;
+    }
+
+    .column.is-2.has-text-centered .caption {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      display: flex;
+      align-items: center;
+      /* 垂直居中 */
+      justify-content: center;
+      /* 水平居中 */
+      font-family: 'Comic Sans MS', 'Verdana', 'Tahoma', sans-serif;
+      text-align: center;
+      /* 让文本在其容器中水平居中 */
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .column.is-2.has-text-centered:hover .caption {
+      opacity: 1;
+    }
+
+    .columns.is-centered img {
+      margin-bottom: 20px;
+      /* 或者你想要的任何值 */
+    }
+
+
+    .section {
+      margin: 3px;
+      padding: 5px;
+    }
+
+    .container2 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .container2 img {
+      height: 300px;
+      /* Adjust the height as needed */
+      object-fit: cover;
+      margin: 10px;
+    }
+
+    .iframe-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+        }
+
+        iframe {
+            border: none; /* 可选：移除 iframe 边框 */
+    }
+
+    .container-row {
+      display: flex;
+      justify-content: space-between; /* 均匀分布图片 */
+      margin-bottom: 20px;  /* 行间距 */
+      width: 100%;
+    }
+
+    .container-row img {
+      flex: 1;             /* 等分容器宽度 */
+      height: 300px;       /* 固定高度 */
+      object-fit: cover;   /* 保持比例填充高度 */
+      margin: 0 5px;       /* 图片间距 */
+      border-radius: 4px;  /* 可选圆角 */
+    }
+  </style>
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 ">Bridging the Aesthetic Gap: Training-Free Multi-Layer Transparent Image Generation</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://openreview.net/profile?id=~Yifan_Pu1">Junwen Chen</a><sup>1</sup>&nbsp;&nbsp;&nbsp;
+              </span>
+              <span class="author-block">
+                <a href="https://openreview.net/profile?id=~Yiming_Zhao3">Heyang Jiang</a><sup>1</sup>&nbsp;&nbsp;&nbsp;
+              </span>
+              <span class="author-block">
+                <a href="https://openreview.net/profile?id=~Zhicong_Tang1">Keming Wu</a><sup>1</sup>&nbsp;&nbsp;&nbsp;
+              </span>
+              <!-- <span class="author-block">
+                <a href="https://openreview.net/profile?id=~Haoxing_Ye1">Yuxuan Luo</a>
+                &nbsp;&nbsp;&nbsp;
+              </span> -->
+              <span class="author-block">
+                <a href="https://openreview.net/profile?id=~Haoxing_Ye1">Ji Li</a>
+                &nbsp;&nbsp;&nbsp;
+              </span>
+              <span class="author-block">
+                <a href="https://openreview.net/profile?id=~Haoxing_Ye1">Chao Zhang</a>
+                &nbsp;&nbsp;&nbsp;
+              </span>
+              <span class="author-block">
+                <a href="https://openreview.net/profile?id=~Haoxing_Ye1">Keiji Yanai</a>
+                &nbsp;&nbsp;&nbsp;
+              </span>
+              <span class="author-block">
+                <a href="https://www.microsoft.com/en-us/research/people/doch/">Dong Chen</a>
+                <sup></sup>&nbsp;&nbsp;&nbsp;
+              </span>
+              <span class="author-block">
+                <a href="https://www.microsoft.com/en-us/research/people/yuyua/">Yuhui Yuan</a>
+                <sup>2</sup>&nbsp;&nbsp;&nbsp;
+              </span>
+              <br>
+              <span class="is-size-6 publication-authors">
+                <sup>1</sup><span>equal technical contribution&nbsp;&nbsp;&nbsp;</span>
+              </span>
+              <span class="is-size-6 publication-authors">
+                <sup>2</sup><span>project lead&nbsp;&nbsp;&nbsp;</span>
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup> </sup>Microsoft Research
+                Asia&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+              <span class="author-block"><sup> </sup>The University of Electro-Communications&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+              <span class="author-block"><sup> </sup>Tsinghua University&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+              <span class="author-block"><sup> </sup>Peking University&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="https://arxiv.org/pdf/2502.18364" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://github.com/redredsheep/art2-msra"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="http://20.3.138.187:7860/" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      🚀
+                    </span>
+                    <span>Demo</span>
+                  </a>
+                </span>
+
+                <!-- <span class="link-block">
+                  <a href="https://glyph-byt5-v2.github.io/" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      🚀
+                    </span>
+                    <span>Glyph-ByT5-v2</span>
+                  </a>
+                </span> -->
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-four-fifths">
+      <h2 class="title is-4">Multi-layer transparent images with different styles generated by our data engine</h2>
+    </div>
+  </div>
+
+  <div class="container-row">
+    <!-- <img src="static/img/Real/cake.png" alt="Image 1" style="height: 445px; width: auto;">
+    <img src="static/img/Real/table.png" alt="Image 2" style="height: 445px; width: auto;"> -->
+    <!-- <img src="static/img/teaser/style_11_images_MultilayerFlux.jpg" alt="Image 1"> -->
+    <img src="static/img/teaser/style_11_images_MultilayerFlux.jpg" alt="Image 1" style="width: 90%; height: auto;">
+  </div>
+  <!-- <div class="container-row">
+    <img src="static/img/2_26_new/5.png" alt="Image 5">
+    <img src="static/img/2_26_new/6.png" alt="Image 6">
+    <img src="static/img/2_26_new/7.png" alt="Image 7">
+    <img src="static/img/2_26_new/8.png" alt="Image 8">
+  </div> -->
+
+  <br>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              The generation of multi-layer transparent images with alpha channels has grown increasingly important in recent times. However, current approaches often experience aesthetic degradation when fine-tuned on low-quality crawled datasets.
+              In this paper, we present a novel training-free pipeline that leverages state-of-the-art diffusion models to generate layered transparent images. 
+              This approach bypasses dataset-specific training and maintains visual fidelity. It generates high-quality transparent layers, each with accurate alpha mattes, thereby ensuring superior aesthetics for every layer.
+            </p>
+            <p>
+              Our key contributions include: (i) a generate-then-matting scheme for single-layer transparent image generation that combines diffusion transformers with a matting model. This scheme uses carefully selected suffix background prompts to establish precise attention patterns between visual tokens and suffix text tokens; 
+              (ii) a multi-layer synthesis engine that generates coherent semantic layouts and composites individual transparent layers into complete designs; and 
+              (iii) a Transparent Image Preference Scoring (TIPS) model for assessing layer quality.
+            </p>
+            <p>
+              Experimental results demonstrate that our framework generates visually appealing transparent images, surpassing existing state-of-the-art methods. 
+              Moreover, training the latest ART model with our high-quality synthesized data significantly improves its layer-wise aesthetic quality and overall visual appeal. 
+              This improvement reaches an unprecedented level, outperforming the original ART model by a large margin.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <br>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Method Overview</h2>
+        <img src="./static/img/method/multi-layer-flux-pipeline-v3.png" alt="pipeline" style="width: 70%;">
+        <br>
+        <p style="font-size: 1.5em; font-weight: bold;">MultiLayerFLUX Pipeline</p>
+        <p>
+          We first apply a multi-layer layout planner to generate a semantic layout from the given global prompt. Then, we apply LayerFLUX to generate high-quality transparent layers separately. Next, we use our trained Transparent Image Preference Score (TIPS) model to assess the quality of each transparent layer, and we abandon or regenerate any low-quality layers. Last, we further apply an artifact classifier to identify and filter out multi-layer images with severe artifacts.
+        </p>
+      </div>
+    </div>
+
+    <br>
+    <br>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Core Contribution</h2>
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 style="text-align: center; font-size: 1.5em; font-weight: bold;">LayerFLUX: Generating Single-Layer Transparent Image via Generate-then-Matting</h2>
+        <br>
+        <img src="./static/img/Core/layerflux.jpg" alt="pipeline" style="width: 80%;">
+        <br>
+        <p>We introduce LayerFLUX, a training-free pipeline that uses diffusion models to generate images on a uniform background and then applies state-of-the-art matting to extract precise alpha masks, delivering high-quality single transparent layers without any fine-tuning. This scheme uses carefully selected suffix background prompts to establish precise attention patterns between visual tokens and suffix text tokens.</p>
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 style="text-align: center; font-size: 1.5em; font-weight: bold;">Transparent Image Quality Assessment</h1>
+          <br>
+          <img src="./static/img/Core/table_2and6.jpg" alt="pipeline" style="width: 80%;">
+          <br>
+          <p>We develop a dedicated Transparent Image Preference Scoring (TIPS) model fine-tuned on a large win–lose dataset to reliably evaluate and rank the aesthetic quality of generated transparent layers and composites.</p>
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 style="text-align: center; font-size: 1.5em; font-weight: bold;">ART+: Improving ART with MultiLayerFLUX</h2>
+          <br>
+          <img src="./static/img/Core/artplus_MultilayerFlux_art.jpg" alt="pipeline" style="width: 80%;">
+          <br>
+          <p>Our MultiLayerFLUX composes multiple LayerFLUX-generated transparent layers according to a semantic layout—either extracted from a reference or produced by an LLM—ensuring precise spatial control and preserving each layer’s visual fidelity. We fine-tune ART with our synthesized data to improve its layer-wise aesthetic quality and overall visual appeal.</p>
+          <br>
+          <p>TODO: Update latest results</p>
+      </div>
+    </div>
+
+    <div class="iframe-container">
+      <iframe src="https://svgedit.netlify.app/editor/index.html?storagePrompt=false&url=https://raw.githubusercontent.com/WYBar/gradiodemo_svg/main/1747817740346.svg" 
+              width="1480px" height="650px"></iframe>
+    </div>
+    
+  </section>
+  <br>
+  <br> 
+
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>
+        @article{pu2025art,
+          title={Bridging the Aesthetic Gap: Training-Free Multi-Layer Transparent Image Generation}, 
+          author={Junwen Chen and Heyang Jiang and Keming Wu and Ji Li and Chao Zhang and Keiji Yanai and Dong Chen and Yuhui Yuan},
+          journal={arXiv preprint arXiv:xxx},
+          year={2025},
+        }
+      </code></pre>
+    </div>
+  </section>
+  
+  
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-four-fifths">
+      <h2 style="text-align: center; font-size: 1.5em; font-weight: bold;">Acknowledgements</h1>
+        Website adapted from the following <a href="https://nerfies.github.io/">template</a>
+        <br>
+    </div>
+  </div>
+
+  <div data-v-28039ae4="" data-v-bd5a58d0="" class="footer-component">
+      <div data-v-28039ae4="" class="container-width">
+          <p data-v-28039ae4=""><a data-v-28039ae4="" target="_blank"
+                  href="mailto: rodin-diffusion@microsoft.com">Contact Us</a> | <a data-v-28039ae4=""
+                  target="_blank" href="https://go.microsoft.com/fwlink/?LinkId=521839">Privacy &amp;
+                  Cookies</a> | <a data-v-28039ae4="" target="_blank"
+                  href="https://go.microsoft.com/fwlink/?linkid=2259814">Consumer Health Privacy</a> | <a
+                  data-v-28039ae4="" target="_blank"
+                  href="https://go.microsoft.com/fwlink/?LinkID=206977">Terms of Use</a> | <a
+                  data-v-28039ae4="" target="_blank"
+                  href="https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks">Trademarks</a>
+              | <a data-v-28039ae4="">© Microsoft 2024</a></p>
+          <p data-v-28039ae4=""><span data-v-28039ae4=""><a data-v-28039ae4="" target="_blank"
+                      href="https://www.microsoft.com/" aria-label="Microsoft"></a></span></p>
+      </div>
+  </div>
+  
+  </body>
+  </html>

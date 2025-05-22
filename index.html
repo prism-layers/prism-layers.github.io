@@ -181,17 +181,20 @@
 
     .container-row {
       display: flex;
+      flex-wrap: wrap; /* 允许换行 */
       justify-content: space-between; /* 均匀分布图片 */
-      margin-bottom: 20px;  /* 行间距 */
+      margin-bottom: 20px; /* 行间距 */
       width: 100%;
+      box-sizing: border-box;
     }
 
     .container-row img {
-      flex: 1;             /* 等分容器宽度 */
-      height: 300px;       /* 固定高度 */
-      object-fit: cover;   /* 保持比例填充高度 */
-      margin: 0 5px;       /* 图片间距 */
-      border-radius: 4px;  /* 可选圆角 */
+      width: calc((100% - 7 * 10px) / 7); /* 计算每张图片的宽度，减去总间距 */
+      height: 300px; /* 固定高度 */
+      object-fit: cover; /* 保持比例填充高度 */
+      margin: 0 5px; /* 图片间距 */
+      border-radius: 4px; /* 可选圆角 */
+      box-sizing: border-box;
     }
   </style>
 
@@ -212,7 +215,7 @@
                 <a href="https://openreview.net/profile?id=~Zhicong_Tang1">Keming Wu</a><sup>1</sup>&nbsp;&nbsp;&nbsp;
               </span>
               <span class="author-block">
-                <a href="https://openreview.net/profile?id=~Haoxing_Ye1">Yanbin Wang</a>
+                <a href="https://openreview.net/profile?id=~Haoxing_Ye1">Yanbin Wang</a><sup>1</sup>&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;
               </span>
               <span class="author-block">
@@ -375,8 +378,8 @@
         
         <!-- <br> -->
         <p style="font-size: 1.5em; font-weight: bold;">Dataset Curation Pipeline of PrismLayers and PrismLayersPro</p>
-        <img src="./static/img/method/1.png" alt="pipeline" style="width: 70%;">
-        <p>
+        <img src="./static/img/method/1.png" alt="pipeline" style="width: 90%;">
+        <!-- <p>
           We first extract semantic
 layouts from a database of 800K crawled multi-layer graphic design images. Then, we apply MultiLayerFLUX
 to generate high-quality multi-layer transparent images. An Artifact Classifier is used to evaluate the quality of
@@ -385,49 +388,114 @@ Image Preference Score (TIPS) model to assess the quality of individual transpar
 aesthetic quality and balancing the number of layers, we collect an 80K-image reference layout pool. From this
 pool, we sample 20K of the highest-quality layouts and regenerate them with style prompts, followed by manual
 selection—forming our released open-source, high-quality multi-layer dataset, PrismLayersPro.
-        </p>
-        <br><br><br>
+        </p> -->
+        <br><br>
 
         <!-- <br> -->
         <p style="font-size: 1.5em; font-weight: bold;">Key dataset statistics on PrismLayers and PrismLayersPro</p>
+        <br>
         <img src="./static/img/method/prism_layers_statistics.jpg" alt="pipeline" style="width: 100%;">
-        <p>
+        <!-- <p>
           A key contribution of this open-source dataset is the provision of
 aesthetically pleasing transparent layers, addressing the limited visual quality found in existing multi-
 layer datasets. Quantitative evaluations using our Transparent Image Aesthetic
 Scoring (TIPS) model illustrate the aesthetic distributions of PrismLayers, MULAN, and
 MLTD.
-        </p>
-        <br><br><br>
+        </p> -->
+        <br><br>
 
         
         <!-- <br> -->
         <p style="font-size: 1.5em; font-weight: bold;">LayerFLUX and MultiLayerFLUX Framework</p>
+        <br>
         <img src="./static/img/method/multilayer-flux-framework.png" alt="pipeline" style="width: 50%;">
-        <p>
+        <!-- <p>
           We build the LayerFLUX with two key designs, including the
 suffix prompt scheme and the additional salient object matting to predict the accurate alpha mattes.
-        </p>
+        </p> -->
       </div>
     </div>
 
-    <br>
     <br>
 
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <!-- <h2 class="title is-3">Core Contribution</h2> -->
-        <h2 class="title is-3">Results</h2>
+        <h2 class="title is-3">Qualitative Results</h2>
       </div>
     </div>
 
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 style="text-align: center; font-size: 1.5em; font-weight: bold;">LayerFLUX: Generating Single-Layer Transparent Image via Generate-then-Matting</h2>
+        <h2 style="text-align: center; font-size: 1.5em; font-weight: bold;">Qualitative Results of LayerFLUX</h2>
         <br>
         <img src="./static/img/Core/layerflux.jpg" alt="pipeline" style="width: 80%;">
         <br>
-        <p>We introduce LayerFLUX, a training-free pipeline that uses diffusion models to generate images on a uniform background and then applies state-of-the-art matting to extract precise alpha masks, delivering high-quality single transparent layers without any fine-tuning. This scheme uses carefully selected suffix background prompts to establish precise attention patterns between visual tokens and suffix text tokens.</p>
+        <!-- <p>We introduce LayerFLUX, a training-free pipeline that uses diffusion models to generate images on a uniform background and then applies state-of-the-art matting to extract precise alpha masks, delivering high-quality single transparent layers without any fine-tuning. This scheme uses carefully selected suffix background prompts to establish precise attention patterns between visual tokens and suffix text tokens.</p> -->
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 style="text-align: center; font-size: 1.5em; font-weight: bold;">Qualitative Results of ART+</h2>
+          <br>
+          <img src="./static/img/Core/artplus_MultilayerFlux_art2.jpg" alt="pipeline" style="width: 80%;">
+          <br>
+          <!-- <p>Our MultiLayerFLUX composes multiple LayerFLUX-generated transparent layers according to a semantic layout—either extracted from a reference or produced by an LLM—ensuring precise spatial control and preserving each layer’s visual fidelity. We fine-tune ART with our synthesized data to improve its layer-wise aesthetic quality and overall visual appeal.</p> -->
+          <br>
+          <!-- <p>TODO: Update latest results</p> -->
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 style="text-align: center; font-size: 1.5em; font-weight: bold;">Qualitative comparison results between FLUX.1-[dev] (1st row), MultiLayerFLUX (2nd row), ART (3rd row), and ART+ (4th row)</h2>
+      </div>
+    </div>
+
+    <div class="container-row">
+      <img src="static/supply/flux/style-art-img-001.png" alt="Image 1">
+      <img src="static/supply/flux/style-art-img-010.png" alt="Image 2">
+      <img src="static/supply/flux/style-art-img-008.png" alt="Image 3">
+      <img src="static/supply/flux/style-art-img-007.png" alt="Image 4">
+      <img src="static/supply/flux/style-art-img-002.png" alt="Image 5">
+      <img src="static/supply/flux/style-art-img-003.png" alt="Image 6">
+      <img src="static/supply/flux/style-art-img-005.png" alt="Image 7">
+    </div>
+    <div class="container-row">
+      <img src="static/supply/mulflux/style-art-img-001.png" alt="Image 1">
+      <img src="static/supply/mulflux/style-art-img-010.png" alt="Image 2">
+      <img src="static/supply/mulflux/style-art-img-008.png" alt="Image 3">
+      <img src="static/supply/mulflux/style-art-img-007.png" alt="Image 4">
+      <img src="static/supply/mulflux/style-art-img-002.png" alt="Image 5">
+      <img src="static/supply/mulflux/style-art-img-003.png" alt="Image 6">
+      <img src="static/supply/mulflux/style-art-img-005.png" alt="Image 7">
+    </div>
+    <div class="container-row">
+      <img src="static/supply/art/style-art-img-001.png" alt="Image 1">
+      <img src="static/supply/art/style-art-img-010.png" alt="Image 2">
+      <img src="static/supply/art/style-art-img-008.png" alt="Image 3">
+      <img src="static/supply/art/style-art-img-007.png" alt="Image 4">
+      <img src="static/supply/art/style-art-img-002.png" alt="Image 5">
+      <img src="static/supply/art/style-art-img-003.png" alt="Image 6">
+      <img src="static/supply/art/style-art-img-005.png" alt="Image 7">
+    </div>
+    <div class="container-row">
+      <img src="static/supply/art_plus/style-art-img-001.png" alt="Image 1">
+      <img src="static/supply/art_plus/style-art-img-010.png" alt="Image 2">
+      <img src="static/supply/art_plus/style-art-img-008.png" alt="Image 3">
+      <img src="static/supply/art_plus/style-art-img-007.png" alt="Image 4">
+      <img src="static/supply/art_plus/style-art-img-002.png" alt="Image 5">
+      <img src="static/supply/art_plus/style-art-img-003.png" alt="Image 6">
+      <img src="static/supply/art_plus/style-art-img-005.png" alt="Image 7">
+    </div>
+
+    <br>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <!-- <h2 class="title is-3">Core Contribution</h2> -->
+        <h2 class="title is-3">Quantitative Results</h2>
       </div>
     </div>
 
@@ -443,15 +511,33 @@ suffix prompt scheme and the additional salient object matting to predict the ac
 
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 style="text-align: center; font-size: 1.5em; font-weight: bold;">ART+: Improving ART with MultiLayerFLUX</h2>
+        <h2 style="text-align: center; font-size: 1.5em; font-weight: bold;">Transparent Image Quality Assessment</h1>
           <br>
-          <img src="./static/img/Core/artplus_MultilayerFlux_art.jpg" alt="pipeline" style="width: 80%;">
+          <img src="./static/img/Core/win_rate_artplus_multilayerflux.png" alt="pipeline" style="width: 80%;">
           <br>
-          <p>Our MultiLayerFLUX composes multiple LayerFLUX-generated transparent layers according to a semantic layout—either extracted from a reference or produced by an LLM—ensuring precise spatial control and preserving each layer’s visual fidelity. We fine-tune ART with our synthesized data to improve its layer-wise aesthetic quality and overall visual appeal.</p>
-          <br>
-          <!-- <p>TODO: Update latest results</p> -->
+          <!-- <p>We develop a dedicated Transparent Image Preference Scoring (TIPS) model fine-tuned on a large win–lose dataset to reliably evaluate and rank the aesthetic quality of generated transparent layers and composites.</p> -->
       </div>
     </div>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 style="text-align: center; font-size: 1.5em; font-weight: bold;">Transparent Image Quality Assessment</h1>
+          <br>
+          <img src="./static/img/Core/win_rate_artplus_art.png" alt="pipeline" style="width: 80%;">
+          <br>
+          <p>Our MultiLayerFLUX composes multiple LayerFLUX-generated transparent layers according to a semantic layout—either extracted from a reference or produced by an LLM—ensuring precise spatial control and preserving each layer’s visual fidelity. We fine-tune ART with our synthesized data to improve its layer-wise aesthetic quality and overall visual appeal.</p>
+      </div>
+    </div>
+
+    <br>
+    
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <!-- <h2 class="title is-3">Core Contribution</h2> -->
+        <h2 class="title is-3">Editable Demo</h2>
+      </div>
+    </div>
+
     <!-- width="1480px" height="650px"></iframe> -->
     <div class="iframe-container">  
       <!-- <iframe src="https://svgedit.netlify.app/editor/index.html?storagePrompt=false&url=https://raw.githubusercontent.com/WYBar/gradiodemo_svg/main/1747829538673.svg"  -->

@@ -181,6 +181,21 @@
 
     .container-row {
       display: flex;
+      justify-content: space-between; /* 均匀分布图片 */
+      margin-bottom: 20px;  /* 行间距 */
+      width: 100%;
+    }
+
+    .container-row img {
+      flex: 1;             /* 等分容器宽度 */
+      height: 300px;       /* 固定高度 */
+      object-fit: cover;   /* 保持比例填充高度 */
+      margin: 0 5px;       /* 图片间距 */
+      border-radius: 4px;  /* 可选圆角 */
+    }
+
+    .container-row2 {
+      display: flex;
       flex-wrap: wrap; /* 允许换行 */
       justify-content: space-between; /* 均匀分布图片 */
       margin-bottom: 20px; /* 行间距 */
@@ -188,7 +203,7 @@
       box-sizing: border-box;
     }
 
-    .container-row img {
+    .container-row2 img {
       width: calc((100% - 7 * 10px) / 7); /* 计算每张图片的宽度，减去总间距 */
       height: 300px; /* 固定高度 */
       object-fit: cover; /* 保持比例填充高度 */
@@ -453,7 +468,7 @@ suffix prompt scheme and the additional salient object matting to predict the ac
       </div>
     </div>
 
-    <div class="container-row">
+    <div class="container-row2">
       <img src="static/supply/flux/style-art-img-001.png" alt="Image 1">
       <img src="static/supply/flux/style-art-img-010.png" alt="Image 2">
       <img src="static/supply/flux/style-art-img-008.png" alt="Image 3">
@@ -462,7 +477,7 @@ suffix prompt scheme and the additional salient object matting to predict the ac
       <img src="static/supply/flux/style-art-img-003.png" alt="Image 6">
       <img src="static/supply/flux/style-art-img-005.png" alt="Image 7">
     </div>
-    <div class="container-row">
+    <div class="container-row2">
       <img src="static/supply/mulflux/style-art-img-001.png" alt="Image 1">
       <img src="static/supply/mulflux/style-art-img-010.png" alt="Image 2">
       <img src="static/supply/mulflux/style-art-img-008.png" alt="Image 3">
@@ -471,7 +486,7 @@ suffix prompt scheme and the additional salient object matting to predict the ac
       <img src="static/supply/mulflux/style-art-img-003.png" alt="Image 6">
       <img src="static/supply/mulflux/style-art-img-005.png" alt="Image 7">
     </div>
-    <div class="container-row">
+    <div class="container-row2">
       <img src="static/supply/art/style-art-img-001.png" alt="Image 1">
       <img src="static/supply/art/style-art-img-010.png" alt="Image 2">
       <img src="static/supply/art/style-art-img-008.png" alt="Image 3">
@@ -480,7 +495,7 @@ suffix prompt scheme and the additional salient object matting to predict the ac
       <img src="static/supply/art/style-art-img-003.png" alt="Image 6">
       <img src="static/supply/art/style-art-img-005.png" alt="Image 7">
     </div>
-    <div class="container-row">
+    <div class="container-row2">
       <img src="static/supply/art_plus/style-art-img-001.png" alt="Image 1">
       <img src="static/supply/art_plus/style-art-img-010.png" alt="Image 2">
       <img src="static/supply/art_plus/style-art-img-008.png" alt="Image 3">
